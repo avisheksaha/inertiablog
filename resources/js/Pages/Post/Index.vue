@@ -33,12 +33,17 @@
 							>{{ post.publish_at_formated }}</span>
 						</td>
 						<td class="border-t">
-							<badge variant="warning">{{post.status == 0 ? "Pending" : ""}}</badge>
+							<switch-input color="#F5BF21" v-model="post.status" @toggle="publishPost(post.id)">
+							</switch-input>
+							<!-- <badge variant="warning">{{post.status == 0 ? "Pending" : ""}}</badge> -->
+							<!-- <badge variant="warning" v-if="post.status == 0">{{post.status == 0 ? "Pending" : ""}}</badge>
+							<badge variant="success" v-if="post.status == 1">{{post.status == 1 ? "Approved" : ""}}</badge> -->
 						</td>
 
 						<td class="border-t text-center">
 							<inertia-link :href="`posts/${post.id}/edit`" class="text-blue-600 mr-3">Edit</inertia-link>
 							<inertia-link href="#" @click.prevent="showModal(post.id)" class="text-red-600">Delete</inertia-link>
+							<!-- <inertia-link :href="`posts/${post.id}/publish`" @click.prevent="showModalPublish(post.id)" class="text-blue-600 mr-3">Publish</inertia-link> -->
 						</td>
 					</tr>
 				</basic-table>
@@ -70,6 +75,25 @@
 					</template>
 				</card>
 			</div>
+
+			<!-- <div class="absolute w-ful h-full top-0 bottom-0 left-0 right-0"
+				v-if="openModalPublish"
+				@click="openModalPublish=false">
+
+				<card with-footer class="shadow-lg max-w-lg mx-auto opacity-100 mt-20">
+					<heading size="heading" class="mb-4">Confirm PUBLISH ?</heading>
+					<heading>Read before you Publish</heading>
+					<template #footer>
+						<loading-button
+							variant="secondary"
+							variant-type="outline"
+							type="button"
+							@click="openModalPublish=false"
+						>Cancel</loading-button>
+						<loading-button ref="publishButton" @click="publishPost">Yes, Publish</loading-button>
+					</template>
+				</card>
+			</div> -->
 		</div>
 	</layout>
 </template>
@@ -80,6 +104,8 @@ import Heading from "@/Shared/tuis/Heading";
 import Badge from "@/Shared/tuis/Badge";
 import BasicTable from "@/Shared/tuis/BasicTable";
 import LoadingButton from "@/Shared/tuis/LoadingButton";
+import SwitchInput from "@/Shared/tuis/SwitchInput";
+
 export default {
 	components: {
 		Layout,
@@ -87,13 +113,20 @@ export default {
 		BasicTable,
 		Heading,
 		LoadingButton,
-		Badge
+		Badge,
+		SwitchInput
 	},
 	props: ["posts"],
 	data() {
 		return {
+			// switchInput: false,
+
 			openModal: false,
 			deletePostId: null,
+			openModalPublish: false,
+			publishPostId: null,
+			
+
 			tableHeadings: [
 				{
 					title: "Title",
@@ -134,6 +167,11 @@ export default {
 			this.deletePostId = null;
 			this.deletePostId = id;
 		},
+		// showModalPublish(id) {
+		// 	this.openModalPublish = !this.openModalPublish;
+		// 	this.publishPostId = null;
+		// 	this.publishPostId = id;
+		// },
 
 		redirect(url) {
 			location.replace(url);
@@ -158,6 +196,19 @@ export default {
 				})
 				.catch(() => {
 					this.$refs.deleteButton.stopLoading();
+				});
+		},
+
+		publishPost(post) {
+			// this.$refs.publishButton.startLoading();
+
+			this.$inertia
+				.post(`/post/${post}/publish`)
+				.then(res => {
+					// this.$refs.publishButton.stoptLoading();
+				})
+				.catch(() => {
+					// this.$refs.publishButton.stopLoading();
 				});
 		}
 	}

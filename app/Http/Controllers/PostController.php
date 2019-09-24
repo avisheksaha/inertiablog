@@ -125,6 +125,7 @@ class PostController extends Controller
         $post->save();
         session()->flash('success', 'Image Deleted');
         return back();
+
     }
 
     public function destroy(Post $post)
@@ -132,5 +133,20 @@ class PostController extends Controller
         $post->delete();
         session()->flash('success', 'Post Deleted');
         return redirect()->back();
+    }
+
+    public function publish(Post $post){
+
+        if($post->status == 0) {
+            $post->update([
+                'status' => 1
+            ]);
+        } else {
+            $post->update([
+                'status' => 0
+            ]);
+        }
+        
+        return redirect()-> back();
     }
 }

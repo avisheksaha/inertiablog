@@ -13,6 +13,9 @@ class Post extends Model
     protected $dates = [
         'publish_at'
     ];
+    protected $casts = [
+        'status' => 'boolean'
+    ];
     // protected $appends = ['image_full_path'];
 
     // public function getImageFullPathAttribute()
@@ -29,7 +32,6 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
-
 
     public function toArray()
     {

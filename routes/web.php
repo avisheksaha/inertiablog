@@ -27,6 +27,7 @@ Route::get('/posts/{post}/edit', 'PostController@edit')->middleware('can:edit-po
 Route::post('/posts/{post}/update', 'PostController@update')->middleware('can:edit-post,post');
 Route::delete('/posts/{post}/delete', 'PostController@destroy')->middleware('can:edit-post,post');
 Route::post('/posts/image/{post}/delete', 'PostController@imageDelete');
+Route::post('/post/{post}/publish', 'PostController@publish');
 
 
 Route::get('/home', function () {
