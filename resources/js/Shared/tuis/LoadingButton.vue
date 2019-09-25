@@ -80,7 +80,12 @@ export default {
 					this.variant == "danger" && this.variantType == "outline",
 
 				"border border-gray-400 text-gray-600 hover:text-blue-500":
-					this.variant == "secondary" && this.variantType == "outline"
+					this.variant == "secondary" && this.variantType == "outline",
+
+
+				"border border-green-600 bg-green-600 hover:bg-green-700 text-white":
+					this.variant == "success" && this.variantType == "",
+
 			};
 		}
 	}

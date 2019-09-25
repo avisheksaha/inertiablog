@@ -28,6 +28,11 @@ Route::post('/posts/{post}/update', 'PostController@update')->middleware('can:ed
 Route::delete('/posts/{post}/delete', 'PostController@destroy')->middleware('can:edit-post,post');
 Route::post('/posts/image/{post}/delete', 'PostController@imageDelete');
 Route::post('/post/{post}/publish', 'PostController@publish');
+Route::get('/post/{post}/show', 'PostController@show');
+
+
+Route::get('/profile', 'ProfileController@index');
+
 
 
 Route::get('/home', function () {
