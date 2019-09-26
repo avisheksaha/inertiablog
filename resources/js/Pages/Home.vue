@@ -7,7 +7,7 @@
                         <img :src="post.image_full_path" class="object-cover rounded-lg w-full h-full" />
                     </div>
                     <div>
-                        <heading size="heading" class="mb-2"><a :href="`/post/${post.id}/show`">{{post.title}}</a></heading>
+                        <heading size="heading" class="mb-2"><inertia-link :href="`/post/${post.id}/show`">{{post.title}}</inertia-link></heading>
                         <heading class="mb-6">{{post.description}}</heading>
                         <div class="flex items-center">
                             <div class="flex items-center">
