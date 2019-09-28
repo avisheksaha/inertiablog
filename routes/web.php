@@ -34,6 +34,10 @@ Route::get('/post/{post}/show', 'PostController@show');
 Route::get('/profile', 'ProfileController@index');
 
 
+Route::post('/post/{post}/comment', 'CommentController@store');
+
+
+
 
 Route::get('/home', function () {
     // return Inertia::render('Home');

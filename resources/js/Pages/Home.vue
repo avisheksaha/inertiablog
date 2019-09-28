@@ -8,7 +8,7 @@
                     </div>
                     <div>
                         <heading size="heading" class="mb-2"><inertia-link :href="`/post/${post.id}/show`">{{post.title}}</inertia-link></heading>
-                        <heading class="mb-6">{{post.description}}</heading>
+                        <heading class="mb-6">{{post.summary}}</heading>
                         <div class="flex items-center">
                             <div class="flex items-center">
                                 <div>

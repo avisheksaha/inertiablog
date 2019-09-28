@@ -12,39 +12,132 @@
                             <avatar :name="post.user.name" color="orange"></avatar>
                             <span class="text-sm">{{post.user.name}}</span>&nbsp;<span class="text-gray-500 text-sm">in</span>&nbsp;<span class="text-sm">{{post.category.category_name}}</span>
                         </p>
-                        <p class="pt-4 text-sm text-justify tracking-widest text-gray-700 leading-relaxed">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia a non voluptate consequatur molestias voluptas officia atque velit beatae ex quam ducimus quo, ipsum dolor architecto veritatis et nihil magnam. Non eius recusandae commodi fuga nisi doloribus sit consequatur iure et laborum ipsa doloremque temporibus maxime repudiandae dolorum consectetur dolores enim explicabo, suscipit sunt asperiores, harum perferendis. Nobis vero perspiciatis excepturi ab nemo architecto dolor incidunt distinctio quae tenetur illum a quidem doloremque ipsa eum, dicta consequatur neque? Velit ab dolores labore placeat, in neque aspernatur ullam est assumenda necessitatibus doloremque maiores pariatur, sapiente nulla beatae nobis dolore provident atque. Voluptatibus at veniam nobis provident eum sed velit cumque, laboriosam magni, architecto atque ex, ducimus quae voluptate nemo repudiandae similique libero molestias aliquam non aspernatur? Nam cumque dolore debitis accusantium ipsa odit aut totam odio quia laborum inventore, architecto nihil corporis maiores unde rerum aperiam. Eos tenetur sunt id cumque nisi quas fugit, harum explicabo pariatur error cum eius aliquid voluptatum quos ea, numquam perferendis non excepturi earum aperiam? Molestias distinctio similique sint magnam alias! Doloremque, impedit odio voluptatem, expedita ab alias animi facere modi deleniti in quidem cumque nostrum? Nihil corporis commodi hic omnis non assumenda excepturi est obcaecati.</p>
+                        <p class="pt-4 text-sm text-justify tracking-widest text-gray-700 leading-relaxed">{{post.description}}</p>
                         <p class="pt-8 text-sm tracking-wider">
                             <span class="text-gray-800">Category:</span>&nbsp;<span class="text-green-400">{{post.category.category_name}}</span>
                         </p>
                     </div>
-                    <div>
-                        <p class="text-2xl tracking-wider pt-2"><u>6 Comments</u></p>
+                    <div class="pt-2 pb-6">
+                        <p class="text-2xl tracking-wider"><u>6 Comments</u></p>
+                        <div class="py-4">
+                            <textarea-input v-model="form.comment" :errors="errors.comment"
+				            @keydown="delete errors.comment" placeholder="Leave a Comment"></textarea-input>
+                            <div class="mt-2">
+                                <loading-button ref="submitButton" @click="commentCreate">Post</loading-button>
+                            </div>
+                        </div>
+                        <!-- {{commentDatas}} -->
+
+                        <div class="py-6 flex" v-for="commentData in commentDatas" :key="commentData.id">
+                            <div><avatar :name="post.user.name" color="orange"></avatar></div>
+                            <div class="pl-4">
+                                <p class="text-lg">{{commentData.user.name}}</p>
+                                <p class="text-sm text-gray-500 tracking-wider uppercase py-1">{{commentData.created_at_formated}}</p>
+                                <p class="text-sm tracking-wide text-gray-700 ">{{commentData.comment}}</p>
+                                <button class="bg-gray-700 text-white px-4 py-1 mt-3 rounded">Reply</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="w-1/3 pl-12">
-                    <div class="pb-4 text-2xl tracking-wider"><u>Popular Posts</u></div>
-                    <div class="flex justify-start">
-                        <div class="text-3xl text-gray-400 inline-block">01</div>
-                        <div class="text-lg inline-block">News Needs to Meet Its Audiences Where They Are</div>
+                    <div class="pb-4 text-2xl tracking-wider underline">Popular Posts</div>
+                    <div class="pb-8">
+                        <div class="flex">
+                            <div class="text-3xl tracking-wider text-gray-400">01</div>
+                            <div class="mt-2 pl-2">
+                                <div class="text-lg inline-block">News Needs to Meet Its Audiences Where They Are</div>  
+                                 <div class="text-sm inline-block pt-2">
+                                    <span>{{post.user.name}}</span>&nbsp;<span class="text-gray-500 text-sm">in</span>&nbsp;<span class="text-sm">{{post.category.category_name}}</span>
+                                    {{post.published_at_formated}}
+
+                                </div>   
+                            </div>
+                        </div>   
                     </div>
+                    
+                    <div class="pb-8">
+                        <div class="flex">
+                            <div class="text-3xl tracking-wider text-gray-400">02</div>
+                            <div class="mt-2 pl-2">
+                                <div class="text-lg inline-block">News Needs to Meet Its Audiences Where They Are</div>  
+                                 <div class="text-sm inline-block pt-2">
+                                    <span>{{post.user.name}}</span>&nbsp;<span class="text-gray-500 text-sm">in</span>&nbsp;<span class="text-sm">{{post.category.category_name}}</span>
+                                </div>   
+                            </div>
+                        </div>   
+                    </div>
+
+                    <div class="pb-8">
+                        <div class="flex">
+                            <div class="text-3xl tracking-wider text-gray-400">03</div>
+                            <div class="mt-2 pl-2">
+                                <div class="text-lg inline-block">News Needs to Meet Its Audiences Where They Are</div>  
+                                 <div class="text-sm inline-block pt-2">
+                                    <span>{{post.user.name}}</span>&nbsp;<span class="text-gray-500 text-sm">in</span>&nbsp;<span class="text-sm">{{post.category.category_name}}</span>
+                                </div>   
+                            </div>
+                        </div>   
+                    </div>
+
+                    <div class="pb-8">
+                        <div class="flex">
+                            <div class="text-3xl tracking-wider text-gray-400">04</div>
+                            <div class="mt-2 pl-2">
+                                <div class="text-lg inline-block">News Needs to Meet Its Audiences Where They Are</div>  
+                                 <div class="text-sm inline-block pt-2">
+                                    <span>{{post.user.name}}</span>&nbsp;<span class="text-gray-500 text-sm">in</span>&nbsp;<span class="text-sm">{{post.category.category_name}}</span>
+                                </div>   
+                            </div>
+                        </div>   
+                    </div>
+                    <p class="pb-8 text-green-400 uppercase tracking-wide text-xs font-bold">SEE ALL POPULAR ></p>
+
                 </div>
             </div>
         </layout>
+
     </div>
 </template>
 
 <script>
 import Layout from "@/Shared/Layout";
 import Avatar from "@/Shared/tuis/Avatar";
+import TextareaInput from "@/Shared/tuis/TextareaInput";
+import LoadingButton from "@/Shared/tuis/LoadingButton";
+
 
     export default {
         components: {
             Layout,
-            Avatar
+            Avatar,
+            TextareaInput,
+            LoadingButton 
+        },
+        data () {
+            return {
+                form: {
+                    comment: ""
+                }
+            }
         },
         props: [
-            "post"
-        ]
+            "post", "errors", "commentDatas"
+        ],
+        methods: {
+            commentCreate () {
+			    this.$refs.submitButton.startLoading();
+
+                this.$inertia.post(`/post/${this.post.id}/comment`, this.form)
+                .then(res=>{
+                    this.$refs.submitButton.stopLoading();
+                    this.form.comment = "";
+					// this.form = {};
+                }).catch({
+
+                });
+            }
+        }
     }
 </script>
 

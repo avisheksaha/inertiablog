@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\{Post, Category};
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\{Post, Category, Comment};
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -81,7 +81,8 @@ class PostController extends Controller
     public function show(Post $post)
     {   
         $post = $post->load(['user','category']);
-        return Inertia::render('Post/Show', compact('post'));
+        $commentDatas = Comment::with(['user','post'])->where('post_id',$post->id)->get();
+        return Inertia::render('Post/Show', compact('post','commentDatas'));
     }
 
     public function edit(Post $post)
@@ -103,7 +104,7 @@ class PostController extends Controller
         // dd($request);
         $this->validate($request, [
             'title' => ['required', 'max:255'],
-            'description' => ['required', 'max:255'],
+            'description' => ['required'],
             'image' => ['nullable', 'image'],
             'category_id' => ['required']
         ]);
