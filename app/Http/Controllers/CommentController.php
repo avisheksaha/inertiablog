@@ -13,6 +13,8 @@ class CommentController extends Controller
        $comment = $this->validate($request,[
             'comment'=>['required', 'max:500']
        ]);
+    //    $cc = Comment::where('post_id',$postId)->count();
+    //    dd($cc);
        Comment::create([
            'user_id' => auth()->user()->id,
            'post_id' => $postId,

@@ -86,7 +86,7 @@ export default {
 				.post("/posts", form)
 				.then(res => {
 					this.$refs.submitButton.stopLoading();
-					this.post = {};
+					// this.post = {};
 				})
 				.catch(() => {
 					this.$refs.submitButton.stopLoading();

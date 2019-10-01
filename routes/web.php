@@ -32,11 +32,15 @@ Route::get('/post/{post}/show', 'PostController@show');
 
 
 Route::get('/profile', 'ProfileController@index');
+Route::post('/profile/create', 'ProfileController@store');
 
 
 Route::post('/post/{post}/comment', 'CommentController@store');
 
+Route::post('/post/{post}/{commentId}/comment', 'SubcommentController@store');
 
+
+Route::post('/changePassword','ProfileController@changePassword');
 
 
 Route::get('/home', function () {

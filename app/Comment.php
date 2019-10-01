@@ -4,6 +4,7 @@ namespace App;
 
 use App\Post;
 use App\User;
+use App\Subcomment;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
@@ -18,6 +19,11 @@ class Comment extends Model
     public function post()
     {
         return $this->belongsTo(Post::class);
+    }
+
+    public function subcomments()
+    {
+        return $this->hasMany(Subcomment::class);
     }
 
     public function toArray()

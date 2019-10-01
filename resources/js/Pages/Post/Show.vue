@@ -34,8 +34,12 @@
                                 <p class="text-lg">{{commentData.user.name}}</p>
                                 <p class="text-sm text-gray-500 tracking-wider uppercase py-1">{{commentData.created_at_formated}}</p>
                                 <p class="text-sm tracking-wide text-gray-700 ">{{commentData.comment}}</p>
-                                <button class="bg-gray-700 text-white px-4 py-1 mt-3 rounded">Reply</button>
                             </div>
+                            <div>
+                                <text-input v-model="subform.subcomment"></text-input>
+                                <button class="bg-gray-700 text-white px-4 py-1 mt-3 rounded" @click="subCommentCreate(commentData.id)">Reply</button>
+                            </div>
+
                         </div>
 
                     </div>
@@ -105,6 +109,7 @@ import Layout from "@/Shared/Layout";
 import Avatar from "@/Shared/tuis/Avatar";
 import TextareaInput from "@/Shared/tuis/TextareaInput";
 import LoadingButton from "@/Shared/tuis/LoadingButton";
+import TextInput from "@/Shared/tuis/TextInput";
 
 
     export default {
@@ -112,12 +117,16 @@ import LoadingButton from "@/Shared/tuis/LoadingButton";
             Layout,
             Avatar,
             TextareaInput,
-            LoadingButton 
+            LoadingButton,
+            TextInput
         },
         data () {
             return {
                 form: {
                     comment: ""
+                },
+                subform: {
+                    subcomment: ""
                 }
             }
         },
@@ -132,6 +141,19 @@ import LoadingButton from "@/Shared/tuis/LoadingButton";
                 .then(res=>{
                     this.$refs.submitButton.stopLoading();
                     this.form.comment = "";
+					// this.form = {};
+                }).catch({
+
+                });
+            },
+
+            subCommentCreate (commentId) {
+			    // this.$refs.submitButton.startLoading();
+
+                this.$inertia.post(`/post/${this.post.id}/${commentId}/comment`, this.subform)
+                .then(res=>{
+                    // this.$refs.submitButton.stopLoading();
+                    this.subform.subcomment = "";
 					// this.form = {};
                 }).catch({
 
